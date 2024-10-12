@@ -86,21 +86,58 @@ double Simplex(vector<double> &coeffObj,
       cout << "x" << i + 1 << " = " << 0 << " ";
     }
   }
-  cout << "F = " << sol;
+  cout << endl;
+  cout << "F = " << sol << endl;
   return sol;
 }
 
 int main() {
-  vector<double> coeffObj = {5, 4};
-  vector<vector<double>> coeffContrain = {
-      {6, 4},
-      {1, 2},
-      {-1, 1},
-      {0, 1}
-  };
-  vector<double> Rhs = {24, 6, 1, 2};
   double accuracy = 0.0001;
-  double sol = Simplex(coeffObj, coeffContrain, Rhs, accuracy);
+  vector<double> coeffObj1 = {4, 9};
+  vector<vector<double>> coeffContrain1 = {
+      {2, 0},
+      {2, 3},
+      {5, 1}
+  };
+  vector<double> Rhs1 = {8, 16, 20};
+  double sol1 = Simplex(coeffObj1, coeffContrain1, Rhs1, accuracy);
+
+
+  vector<double> coeffObj2 = {4, 1};
+  vector<vector<double>> coeffContrain2 = {
+      {2, -1},
+      {10, 7}
+  };
+  vector<double> Rhs2 = {13, 100};
+  double sol2 = Simplex(coeffObj2, coeffContrain2, Rhs2, accuracy);
+
+  vector<double> coeffObj3 = {2, 8};
+  vector<vector<double>> coeffContrain3 = {
+      {2, -3},
+      {-4, 10}
+  };
+  vector<double> Rhs3 = {40, 40};
+  double sol3 = Simplex(coeffObj3, coeffContrain3, Rhs3, accuracy);
+
+  vector<double> coeffObj4 = {-2, 4};
+  vector<vector<double>> coeffContrain4 = {
+      {2, 1},
+      {-4, 10},
+      {-2, 1}
+  };
+  vector<double> Rhs4 = {79, 53,-10};
+  double sol4 = Simplex(coeffObj4, coeffContrain4, Rhs4, accuracy);
+
+  vector<double> coeffObj5 = {2.5, 2.5};
+  vector<vector<double>> coeffContrain5 = {
+      {10, 0},
+      {0, 10},
+      {1, -1},
+      {-1, 1}
+
+  };
+  vector<double> Rhs5 = {100, 100, 5, 5};
+  double sol5 = Simplex(coeffObj5, coeffContrain5, Rhs5, accuracy);
 
   return 0;
 }
