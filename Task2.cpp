@@ -205,25 +205,143 @@ vvd ipalgo(vvd x, vvd A, vvd c) {
 }
 
 int main() {
-    vector<vector<long double>>A = {
+
+    // Objective Functions
+
+    vvd ObjectiveFunction1 = {
+        {9}, {10}, {16}, {0}, {0}, {0}
+    };
+
+    vvd ObjectiveFunction2 = {
+        {8}, {12}, {14}, {1}, {0}, {0}
+    };
+
+    vvd ObjectiveFunction3 = {
+        {11}, {13}, {15}, {0}, {1}, {0}
+    };
+
+    vvd ObjectiveFunction4 = {
+        {7}, {9}, {13}, {2}, {0}, {0}
+    };
+    
+    vvd ObjectiveFunction5 = {
+        {10}, {14}, {12}, {3}, {1}, {0}
+    };
+
+    // Constraints
+
+    vector<vector<long double>> ConstraintFunction1 = {
         {18, 15, 12, 1, 0, 0},
         {6, 4, 8, 0, 1, 0},
         {5, 3, 3, 0, 0, 1}
     };
-    vvd x = {
+
+    vector<vector<long double>> ConstraintFunction2 = {
+        {20, 10, 15, 1, 0, 0},
+        {7, 5, 9, 0, 1, 0},
+        {4, 6, 2, 0, 0, 1}
+    };
+
+    vector<vector<long double>> ConstraintFunction3 = {
+        {25, 20, 10, 1, 0, 0},
+        {8, 6, 7, 0, 1, 0},
+        {3, 5, 4, 0, 0, 1}
+    };
+
+    vector<vector<long double>> ConstraintFunction4 = {
+        {15, 25, 20, 1, 0, 0},
+        {9, 7, 5, 0, 1, 0},
+        {6, 4, 3, 0, 0, 1}
+    };
+
+    vector<vector<long double>> ConstraintFunction5 = {
+        {30, 18, 22, 1, 0, 0},
+        {10, 12, 6, 0, 1, 0},
+        {5, 8, 4, 0, 0, 1}
+    };
+
+    // Initial Feasible Solution Values
+
+    vvd InitialSolution1 = {
         {1}, {1}, {1}, {315}, {174}, {169}
     };
-    vvd c = {
-        {9}, {10}, {16}, {0}, {0}, {0}
-    };
-    vvd xans_f = ipalgo(x, A, c);
-    printMatrix(xans_f);
-    printMatrix(mul(transpose(xans_f), c));
 
-    cout<<"\n\n";
+    vvd InitialSolution2 = {
+        {2}, {2}, {2}, {200}, {150}, {120}
+    };
+
+    vvd InitialSolution3 = {
+        {3}, {2}, {1}, {250}, {180}, {160}
+    };
+
+    vvd InitialSolution4 = {
+        {2}, {3}, {2}, {300}, {160}, {140}
+    };
+
+    vvd InitialSolution5 = {
+        {4}, {1}, {3}, {400}, {200}, {180}
+    };
 
     alpha = 0.9;
-    vvd xans_s = ipalgo(x, A, c);
-    printMatrix(xans_s);
-    printMatrix(mul(transpose(xans_s), c));
+
+    cout<<"\nProblem 1:\n";
+
+    vvd xans_f1 = ipalgo(InitialSolution1, ConstraintFunction1, ObjectiveFunction1);
+    printMatrix(xans_f1);
+    printMatrix(mul(transpose(xans_f1), ObjectiveFunction1));
+
+    cout<<"------------------------------\n\n";
+
+    vvd xans_s1 = ipalgo(InitialSolution1, ConstraintFunction1, ObjectiveFunction1);
+    printMatrix(xans_s1);
+    printMatrix(mul(transpose(xans_s1), ObjectiveFunction1));
+
+    cout<<"\nProblem 2:\n";
+
+    vvd xans_f2 = ipalgo(InitialSolution2, ConstraintFunction2, ObjectiveFunction2);
+    printMatrix(xans_f2);
+    printMatrix(mul(transpose(xans_f2), ObjectiveFunction2));
+
+    cout<<"------------------------------\n\n";
+
+    vvd xans_s2 = ipalgo(InitialSolution2, ConstraintFunction2, ObjectiveFunction2);
+    printMatrix(xans_s2);
+    printMatrix(mul(transpose(xans_s2), ObjectiveFunction2));
+    
+    cout<<"\nProblem 3:\n";
+
+    vvd xans_f3 = ipalgo(InitialSolution3, ConstraintFunction3, ObjectiveFunction3);
+    printMatrix(xans_f3);
+    printMatrix(mul(transpose(xans_f3), ObjectiveFunction3));
+
+    cout<<"------------------------------\n\n";
+
+    vvd xans_s3 = ipalgo(InitialSolution3, ConstraintFunction3, ObjectiveFunction3);
+    printMatrix(xans_s3);
+    printMatrix(mul(transpose(xans_s3), ObjectiveFunction3));
+    
+    cout<<"\nProblem 4:\n";
+
+    vvd xans_f4 = ipalgo(InitialSolution4, ConstraintFunction4, ObjectiveFunction4);
+    printMatrix(xans_f4);
+    printMatrix(mul(transpose(xans_f4), ObjectiveFunction4));
+
+    cout<<"------------------------------\n\n";
+
+    vvd xans_s4 = ipalgo(InitialSolution4, ConstraintFunction4, ObjectiveFunction4);
+    printMatrix(xans_s4);
+    printMatrix(mul(transpose(xans_s4), ObjectiveFunction4));
+    
+    cout<<"\nProblem 5:\n";
+
+    vvd xans_f5 = ipalgo(InitialSolution5, ConstraintFunction5, ObjectiveFunction5);
+    printMatrix(xans_f5);
+    printMatrix(mul(transpose(xans_f5), ObjectiveFunction5));
+
+    cout<<"------------------------------\n\n";
+
+    vvd xans_s5 = ipalgo(InitialSolution5, ConstraintFunction5, ObjectiveFunction5);
+    printMatrix(xans_s5);
+    printMatrix(mul(transpose(xans_s5), ObjectiveFunction5));
+
 }
