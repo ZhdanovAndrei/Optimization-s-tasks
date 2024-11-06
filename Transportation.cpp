@@ -14,7 +14,7 @@ bool isBalanced(const vector<int>& supply, const vector<int>& demand) {
    
 }
 
-vector<Allocation> northWestCorner(vector<int> supply, vector<int> demand) {
+vector<Allocation> northWestCorner(vector<int> supply, vector<int> demand, const vector<vector<int>>& cost) {
     vector<Allocation> allocations;
     return allocations;
 }
@@ -55,7 +55,7 @@ int main() {
     }
     
     cout << "North-West Corner Method:" << endl;
-    auto nwAllocations = northWestCorner(supply, demand);
+    auto nwAllocations = northWestCorner(supply, demand, cost);
     printAllocations(nwAllocations);
 
     cout << "\nVogel's Approximation Method:" << endl;
