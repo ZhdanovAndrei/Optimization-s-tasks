@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<array>
 
 using namespace std;
 
@@ -9,6 +10,14 @@ struct Allocation {
     int amount;
 };
 
+bool NotIn (int index, vector<int> list){
+    for(int i = 0; i < list.size(); i++){
+        if (index == list[i]){
+            return false;
+        }
+    }
+    return true;
+}
 void printTable(vector<int> supply, vector<int> demand, const vector<vector<int>>& cost){
     int inputTable[4][5];
     for (int i = 0; i < 4; i++){
@@ -64,7 +73,66 @@ vector<Allocation> vogelApproximation(vector<int> supply, vector<int> demand, co
 
 vector<Allocation> russellApproximation(vector<int> supply, vector<int> demand, const vector<vector<int>>& cost) {
     vector<Allocation> allocations;
-
+    int totalSum = 0;
+    vector<int> I = {};
+    vector<int> J = {};
+    for (int i = 0; i < demand.size(); i++){
+        totalSum += demand[i];
+    }
+    while (totalSum != 0){
+        int maxRow[3] = {0,0,0};
+        int maxColumn[4] = {0,0,0,0};
+        for (int i = 0; i < 3; i++){
+            int sum = 0;
+            for (int j = 0; j < 4; j++){
+                if (sum < cost[i][j] && NotIn(i, I) && NotIn(j, J)){
+                    sum = cost[i][j];
+                }
+            }
+            maxRow[i] = sum;
+        }
+         for (int j = 0; j < 4; j++){
+            int sum = 0;
+            for (int i = 0; i < 3; i++){
+                if (sum < cost[i][j] && NotIn(i, I) && NotIn(j, J)){
+                    sum = cost[i][j];
+                }
+            }
+            maxColumn[j] = sum;
+        }
+        int minValue = 1000000;
+        int minI = -1;
+        int minJ = -1;
+        int MinMatrix[3][4] = {{0,0,0,0}, {0,0,0,0} , {0,0,0,0}};
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 4; j++){
+                if ((NotIn(i, I)) && (NotIn(j, J))){
+                    MinMatrix[i][j] = cost[i][j] - (maxRow[i] + maxColumn[j]); 
+                    if ((MinMatrix[i][j] < minValue)){
+                        minValue = MinMatrix[i][j]; 
+                        minI = i;
+                        minJ = j;
+                    }
+                }
+            }
+        }
+       
+        int amount = min(demand[minJ], supply[minI]);
+        totalSum -= amount;
+        
+        demand[minJ] -= amount;
+        supply[minI] -= amount;
+        if (demand[minJ] == 0){
+            J.push_back(minJ);
+        }
+        if (supply[minI] == 0){
+            I.push_back(minI);
+        }
+        Allocation location = {minI, minJ, amount};
+        allocations.push_back(location);
+        
+    }
+    
     return allocations;
 }
 
@@ -78,12 +146,15 @@ void printAllocations(const vector<Allocation>& allocations) {
 
 
 int main() {
-    vector<int> supply = {20, 25, 25};
-    vector<int> demand = {15, 15, 30, 10};
+    vector<int> supply = {7, 9, 18};
+    vector<int> demand = {5, 8, 7, 14};
+
+   
+
     vector<vector<int>> cost = {
-        {8, 6, 10, 3},
-        {9, 12, 13, 6},
-        {14, 9, 16, 9}
+        {19, 30, 50, 10},
+        {70, 30, 40, 60},
+        {40, 8, 70, 20}
     };
 
     if (!isBalanced(supply, demand)) {
