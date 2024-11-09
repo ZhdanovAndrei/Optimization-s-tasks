@@ -61,6 +61,21 @@ bool isBalanced(const vector<int>& supply, const vector<int>& demand) {
 
 vector<Allocation> northWestCorner(vector<int> supply, vector<int> demand, const vector<vector<int>>& cost) {
     vector<Allocation> allocations;
+    int row = 0, col = 0;
+    while (row < cost.size() && col < cost[0].size()) {
+        int amount = min(supply[row], demand[col]);
+        supply[row] -= amount;
+        demand[col] -= amount;
+        allocations.push_back({row, col, amount});
+        if (supply[row] > demand[col]) {
+            col++;
+        } else if (supply[row] < demand[col]) {
+            row++;
+        } else {
+            row++;
+            col++;
+        }
+    }
     return allocations;
 }
 
