@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include<array>
+#include <array>
 
 using namespace std;
 
@@ -88,12 +88,8 @@ vector<Allocation> vogelApproximation(vector<int> supply, vector<int> demand, co
     vector<int>remaining_columns;
     for(int i = 0;i < n;i++) remaining_rows.push_back(i);
     for(int i = 0;i < m;i++) remaining_columns.push_back(i);
-    while(n > 1 and m > 1){
-        // cout<<"\nRemaining rows: ";
-        // for(int i = 0;i < n;i++) cout<<remaining_rows[i]<<' ';
-        // cout<<"\nRemaining columns: ";
-        // for(int i = 0;i < m;i++) cout<<remaining_columns[i]<<' ';
-        // cout<<'\n';
+    while(n > 1 && m > 1){
+       
         int largest_difference = -1e9;
         int wh = 0; // row or column
         int idx = -1;
@@ -271,35 +267,97 @@ void printAllocations(const vector<Allocation>& allocations) {
 
 
 int main() {
-    vector<int> supply = {7, 9, 18};
-    vector<int> demand = {5, 8, 7, 14};
-
-   
-
-    vector<vector<int>> cost = {
-        {19, 30, 50, 10},
-        {70, 30, 40, 60},
-        {40, 8, 70, 20}
+    vector<int> supply1 = {200, 120, 150};
+    vector<int> demand1 = {120, 220, 90, 40};
+    vector<vector<int>> cost1 = {
+        {70, 55, 60, 40},
+        {45, 30, 20, 50},
+        {30, 1000, 15, 25}
     };
 
-    if (!isBalanced(supply, demand)) {
+    vector<int> supply2 = {85, 150, 30};
+    vector<int> demand2 = {45, 20, 140, 60};
+    vector<vector<int>> cost2 = {
+        {175, 50, 105, 215},
+        {340, 60, 365, 495},
+        {375, 475, 410, 135}
+    };
+
+    vector<int> supply3 = {173, 851, 374};
+    vector<int> demand3 = {126, 502, 339, 229};
+    vector<vector<int>> cost3 = {
+        {4, 2, 9, 1},
+        {7, 5, 8, 5},
+        {5, 3, 10, 8}
+    };
+
+
+
+    // test 1
+    cout << "\nTest 1" << endl;
+    if (!isBalanced(supply1, demand1)) {
         cout << "The problem is not balanced!" << endl;
         return 0;
     }
     
-    printTable(supply, demand, cost);
+    printTable(supply1, demand1, cost1);
 
     cout << "North-West Corner Method:" << endl;
-    auto nwAllocations = northWestCorner(supply, demand, cost);
-    printAllocations(nwAllocations);
+    auto nwAllocations1 = northWestCorner(supply1, demand1, cost1);
+    printAllocations(nwAllocations1);
 
     cout << "\nVogel's Approximation Method:" << endl;
-    auto vogelAllocations = vogelApproximation(supply, demand, cost);
-    printAllocations(vogelAllocations);
+    auto vogelAllocations1 = vogelApproximation(supply1, demand1, cost1);
+    printAllocations(vogelAllocations1);
 
     cout << "\nRussell's Approximation Method:" << endl;
-    auto russellAllocations = russellApproximation(supply, demand, cost);
-    printAllocations(russellAllocations);
+    auto russellAllocations1 = russellApproximation(supply1, demand1, cost1);
+    printAllocations(russellAllocations1);
 
+
+
+     // test 2
+    cout << "\nTest 2" << endl; ;
+    if (!isBalanced(supply2, demand2)) {
+        cout << "The problem is not balanced!" << endl;
+        return 0;
+    }
+    
+    printTable(supply2, demand2, cost2);
+
+    cout << "North-West Corner Method:" << endl;
+    auto nwAllocations2 = northWestCorner(supply2, demand2, cost2);
+    printAllocations(nwAllocations2);
+
+    cout << "\nVogel's Approximation Method:" << endl;
+    auto vogelAllocations2 = vogelApproximation(supply2, demand2, cost2);
+    printAllocations(vogelAllocations2);
+
+    cout << "\nRussell's Approximation Method:" << endl;
+    auto russellAllocations2 = russellApproximation(supply2, demand2, cost2);
+    printAllocations(russellAllocations2);
+
+    // test 3
+    cout << "\nTest 3" << endl;
+
+    if (!isBalanced(supply3, demand3)) {
+        cout << "The problem is not balanced!" << endl;
+        return 0;
+    }
+    
+    printTable(supply3, demand3, cost3);
+
+    cout << "North-West Corner Method:" << endl;
+    auto nwAllocations3 = northWestCorner(supply3, demand3, cost3);
+    printAllocations(nwAllocations3);
+
+    cout << "\nVogel's Approximation Method:" << endl;
+    auto vogelAllocations3 = vogelApproximation(supply3, demand3, cost3);
+    printAllocations(vogelAllocations3);
+
+    cout << "\nRussell's Approximation Method:" << endl;
+    auto russellAllocations3 = russellApproximation(supply3, demand3, cost3);
+    printAllocations(russellAllocations3);
+    
     return 0;
 }
