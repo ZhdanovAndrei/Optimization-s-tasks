@@ -82,6 +82,116 @@ vector<Allocation> northWestCorner(vector<int> supply, vector<int> demand, const
 
 vector<Allocation> vogelApproximation(vector<int> supply, vector<int> demand, const vector<vector<int>>& cost) {
     vector<Allocation> allocations;
+    int n = (int)supply.size();
+    int m = (int)demand.size();
+    vector<int>remaining_rows;
+    vector<int>remaining_columns;
+    for(int i = 0;i < n;i++) remaining_rows.push_back(i);
+    for(int i = 0;i < m;i++) remaining_columns.push_back(i);
+    while(n > 1 and m > 1){
+        cout<<"\nRemaining rows: ";
+        for(int i = 0;i < n;i++) cout<<remaining_rows[i]<<' ';
+        cout<<"\nRemaining columns: ";
+        for(int i = 0;i < m;i++) cout<<remaining_columns[i]<<' ';
+        cout<<'\n';
+        int largest_difference = -1e9;
+        int wh = 0; // row or column
+        int idx = -1;
+        for(int i = 0;i < n;i++){
+            int mn = 1e9;
+            int smn = 1e9;
+            for(int j = 0;j < m;j++){
+                int val = cost[remaining_rows[i]][remaining_columns[j]];
+                if(val < mn){
+                    smn = mn;
+                    mn = val;
+                }
+                else if(val < smn){
+                    smn = val;
+                }
+            }
+            if(largest_difference < smn - mn){
+                largest_difference = smn - mn;
+                wh = 1;
+                idx = i;
+            }
+        }
+        for(int j = 0;j < m;j++){
+            int mn = 1e9;
+            int smn = 1e9;
+            for(int i = 0;i < n;i++){
+                int val = cost[remaining_rows[i]][remaining_columns[j]];
+                if(val < mn){
+                    smn = mn;
+                    mn = val;
+                }
+                else if(val < smn){
+                    smn = val;
+                }
+            }
+            if(largest_difference < smn - mn){
+                largest_difference = smn - mn;
+                wh = 2;
+                idx = j;
+            }
+        }
+        int row = -1;
+        int col = -1;
+        if(wh == 1){
+            row = idx;
+            int mn = 1e9;
+            for(int j = 0;j < m;j++){
+                if(mn > cost[remaining_rows[idx]][remaining_columns[j]]){
+                    mn = cost[remaining_rows[idx]][remaining_columns[j]];
+                    col = j;
+                }
+            }
+        }
+        else {
+            col = idx;
+            int mn = 1e9;
+            for(int i = 0;i < n;i++){
+                if(mn > cost[remaining_rows[i]][remaining_columns[idx]]){
+                    mn = cost[remaining_rows[i]][remaining_columns[idx]];
+                    row = i;
+                }
+            }
+        }
+        Allocation now;
+        now.source = remaining_rows[row];
+        now.destination = remaining_columns[col];
+        now.amount = min(supply[remaining_rows[row]], demand[remaining_columns[col]]);
+        allocations.push_back(now);
+
+        supply[remaining_rows[row]] -= now.amount;
+        demand[remaining_columns[col]] -= now.amount;
+        if(supply[remaining_rows[row]] == 0){
+            remaining_rows.erase(remaining_rows.begin() + row);
+            n--;
+        }
+        else {
+            remaining_columns.erase(remaining_columns.begin() + col);
+            m--;
+        }
+    }
+    if(n == 1){
+        for(int j = 0;j < m;j++){
+            Allocation now;
+            now.source = remaining_rows[0];
+            now.destination = remaining_columns[j];
+            now.amount = min(supply[remaining_rows[0]], demand[remaining_columns[j]]);
+            allocations.push_back(now);
+        }
+    }
+    else {
+        for(int i = 0;i < n;i++){
+            Allocation now;
+            now.source = remaining_rows[i];
+            now.destination = remaining_columns[0];
+            now.amount = min(supply[remaining_rows[i]], demand[remaining_columns[0]]);
+            allocations.push_back(now);
+        }
+    }
     return allocations;
 }
 
