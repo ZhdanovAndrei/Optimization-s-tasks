@@ -89,11 +89,11 @@ vector<Allocation> vogelApproximation(vector<int> supply, vector<int> demand, co
     for(int i = 0;i < n;i++) remaining_rows.push_back(i);
     for(int i = 0;i < m;i++) remaining_columns.push_back(i);
     while(n > 1 and m > 1){
-        cout<<"\nRemaining rows: ";
-        for(int i = 0;i < n;i++) cout<<remaining_rows[i]<<' ';
-        cout<<"\nRemaining columns: ";
-        for(int i = 0;i < m;i++) cout<<remaining_columns[i]<<' ';
-        cout<<'\n';
+        // cout<<"\nRemaining rows: ";
+        // for(int i = 0;i < n;i++) cout<<remaining_rows[i]<<' ';
+        // cout<<"\nRemaining columns: ";
+        // for(int i = 0;i < m;i++) cout<<remaining_columns[i]<<' ';
+        // cout<<'\n';
         int largest_difference = -1e9;
         int wh = 0; // row or column
         int idx = -1;
