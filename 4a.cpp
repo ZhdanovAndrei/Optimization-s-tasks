@@ -23,5 +23,5 @@ double BisectionMethod(double (*func)(double), double xl, double xr, double e) {
 
 int main() {
     double x_root = BisectionMethod(func, 1, 2, 1e-6);
-    cout<<x_root; // 2 for this this and interval [1,2]
+    cout<<x_root; // 2 for this function this and interval [1,2]
 }
