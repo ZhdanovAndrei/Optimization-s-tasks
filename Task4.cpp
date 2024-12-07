@@ -9,6 +9,19 @@ double func2(double x) {
     return tmp * tmp + 3;
 }
 
+/**
+ Question 1:  Why does the Golden Section Method work only for unimodal functions?
+
+ Answer: The Golden Section Method works for unimodal functions because:
+
+         There is only one extremum (minimum or maximum), so the method can always eliminate one part of the search
+         interval.
+
+         This progressive narrowing ensures convergence to the global extremum. For multi-modal functions, the method
+         cannot guarantee convergence to the global extremum, as the presence of multiple local minima or maxima makes
+         it impossible to eliminate parts of the search space without potentially missing the global solution.
+**/
+
 vector<pair<double, double>> goldenSectionMethod(double (*func)(double), double xl, double xr, double e) {
     vector<pair<double,double>> iterations;
     double golden_ratio = (sqrt(5 + 0.0) - 1) / 2.0;
