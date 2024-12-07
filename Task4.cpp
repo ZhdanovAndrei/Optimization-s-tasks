@@ -44,7 +44,7 @@ void print_iterations(string methodName, vector<pair<double, double>> iterations
     int number = 0;
     for (auto i : iterations) {
         number++;
-        cout << "Iteration #" << setw(2) << number << "   (" << i.first << ", " << i.second << ")" << endl;
+        cout << fixed << setprecision(5) << "Iteration #" << setw(2) << number << "   (" << i.first << ", " << i.second << ")" << endl;
     }
     cout << endl << endl;
 }
