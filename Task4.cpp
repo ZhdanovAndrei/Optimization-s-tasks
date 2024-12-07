@@ -20,6 +20,10 @@ double func2(double x) {
          This progressive narrowing ensures convergence to the global extremum. For multi-modal functions, the method
          cannot guarantee convergence to the global extremum, as the presence of multiple local minima or maxima makes
          it impossible to eliminate parts of the search space without potentially missing the global solution.
+
+ Question 2: Test your program with [a, b] = [0, 5] and ϵ = 10^−4
+
+ Answer is x: 1.99998
 **/
 
 vector<pair<double, double>> goldenSectionMethod(double (*func)(double), double xl, double xr, double e) {
@@ -47,6 +51,8 @@ void print_iterations(string methodName, vector<pair<double, double>> iterations
         cout << fixed << setprecision(5) << "Iteration #" << setw(2) << number << "   (" << i.first << ", " << i.second << ")" << endl;
     }
     cout << endl << endl;
+    double x = (iterations.back().first + iterations.back().second) / 2.0;
+    cout << "Result is x: " << fixed << setprecision(5) << x << endl;
 }
 
 int main() {
